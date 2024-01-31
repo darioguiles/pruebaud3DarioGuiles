@@ -1,0 +1,72 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/general.html :: headfiles}">
+    <meta charset="UTF-8">
+    <title th:text="#{et.peli}">Peliculas</title>
+    <style>
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="contenedora" style="float:none; margin: 0 auto;width: 95%;" >
+    <div class="clearfix">
+        <div style="float: left; width: 50%">
+            <h1 th:text="#{et.peli}"></h1>
+        </div>
+        <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
+
+            <div style="position: absolute; left: 39%; top : 39%;">
+
+                <form th:action="@{/peliculas/crear}">
+                    <input class="btn btn-primary" type="submit" th:value="#{action.c}">
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix">
+        <hr/>
+    </div>
+    <div class="clearfix">
+        <div style="float: left;width: 12%">Id</div>
+        <div style="float: left;width: 10%" th:text="#{p.title}">Titulo</div>
+        <div style="float: left;width: 10%" th:text="#{p.campo2}">fecha_lanzamiento</div>
+        <div style="float: left;width: 10%" th:text="#{p.campo3}">IDidioma</div>
+        <div style="float: left;width: 10%" th:text="#{p.campo4}">Duración Alquiler</div>
+        <div style="float: left;width: 10%" th:text="#{p.campo5}">Rental Rate</div>
+        <div style="float: left;width: 12%" th:text="#{p.campo6}">Duración</div>
+        <div style="float: none;width: auto;overflow: hidden;" th:text="#{formA}">Acción</div>
+    </div>
+    <div class="clearfix">
+        <hr/>
+    </div>
+    <!--- AQUI VAN NUESTROS DATOS --->
+    <div  th:each="pelicula : ${listaPeliculas}" style="margin-top: 6px;" class="clearfix">
+        <div style="float: left;width: 9%" th:text="${pelicula.id_pelicula}">ID</div>
+        <div style="float: left;width: 13%" th:text="${pelicula.titulo}">Titulo</div>
+        <div style="float: left;width: 10%" th:text="${pelicula.fecha_lanzamiento}">fecha_lanzamiento</div>
+        <div style="float: left;width: 10%" th:text="${pelicula.id_idioma}">IDidioma</div>
+        <div style="float: left;width: 10%" th:text="${pelicula.duracion_alquiler}">Duración Alquiler</div>
+        <div style="float: left;width: 10%" th:text="${pelicula.rental_rate}">Rental Rate</div>
+        <div style="float: left;width: 10%" th:text="${pelicula.duracion}">Duración</div>
+        <div style="float: none;width: auto;overflow: hidden;">
+            <form th:action="@{/peliculas/__${pelicula.id_pelicula}__}" style="display: inline;">
+                <input class="btn btn-primary" th:value="#{action.r}" type="submit"  />
+            </form>
+            <form th:action="@{/peliculas/editar/}+${pelicula.id_pelicula} " style="display: inline;">
+                <input class="btn btn-warning" th:value="#{action.u}" type="submit"  />
+            </form>
+            <form th:action="@{/peliculas/borrar/}+${pelicula.id_pelicula}" method="post" style="display: inline;">
+                <input class="btn btn-danger" th:value="#{action.d}" type="submit"  />
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

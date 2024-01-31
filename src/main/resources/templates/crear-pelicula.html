@@ -1,0 +1,91 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{et.peli}">Peliculas</title>
+    <th:block th:include="fragments/general.html :: headfiles"/>
+<body>
+
+<div class="container">
+    <form action="/peliculas/crear" th:object="${pelicula}" method="post">
+        <div class="row mb-2">
+            <div class="col-md-8 h1" th:text="#{msg.peli.crear}">Crear Pelicula</div>
+            <div class="col-md-4 align-self-center" >
+                <input class="btn btn-primary"  type="submit" th:value="#{action.c}" value="Crear">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-3">
+                <label for="inputtitulo" class="form-label" th:text="#{p.title}" >
+                    Titulo
+                </label>
+                <div>
+                    <input id="inputtitulo" type="text" class="form-control" th:classappend="${#fields.hasErrors('titulo')?'is-invalid':''}" th:field="*{titulo}"  />
+                    <ul class="text-danger " th:if="${#fields.hasErrors('titulo')}">
+                        <li th:each="err : ${#fields.errors('titulo')}" th:text="${err}" />
+                    </ul>
+                </div>
+
+                <label for="inputdescripcion" class="form-label" th:text="#{p.title}" >
+                    Descripcion
+                </label>
+                <div>
+                    <input id="inputdescripcion" type="text" class="form-control" th:classappend="${#fields.hasErrors('descripcion')?'is-invalid':''}" th:field="*{descripcion}"  />
+                    <ul class="text-danger " th:if="${#fields.hasErrors('descripcion')}">
+                        <li th:each="err : ${#fields.errors('descripcion')}" th:text="${err}" />
+                    </ul>
+                </div>
+                <label for="inputfechaL" class="form-label" th:text="#{p.title}" >
+                    Fecha Lanz
+                </label>
+                <div>
+                    <input id="inputfechaL" type="date" class="form-control" />
+                </div>
+
+            <div class="col-md-3">
+                <label for="selectidioma" class="form-label" th:text="#{msg.comercial}">
+                    Idiomas
+                </label>
+                <div >
+                    <select id="selectidioma" class="js-select2 form-select" th:classappend="${#fields.hasErrors('id_idioma')?'is-invalid':''}" th:field="*{id_idioma}">
+                        <option value="-1" th:text="#{msg.seleccione.opcion}"></option>
+                        <option
+                                th:value="${idioma.id}"
+                                th:text="${'Id: ' + idioma.id + ' - ' + comercial.nombre + ' ' + comercial.apellido1 + ' ' + comercial.apellido2}"
+                                th:each="idioma:${listaIdioma}"></option>
+                    </select>
+                </div>
+            </div>
+                <label for="duralqu" class="form-label" th:text="#{p.title}" >
+                    Duracion Alquiler
+                </label>
+                <div>
+                    <input id="duralqu" type="text" class="form-control" th:classappend="${#fields.hasErrors('duracion_alquiler')?'is-invalid':''}" th:field="*{duracion_alquiler}"  />
+                    <ul class="text-danger " th:if="${#fields.hasErrors('duracion_alquiler')}">
+                        <li th:each="err : ${#fields.errors('duracion_alquiler')}" th:text="${err}" />
+                    </ul>
+                </div>
+
+                <label for="ratiorent" class="form-label" th:text="#{p.title}" >
+                    Rental Rate
+                </label>
+                <div>
+                    <input id="ratiorent" type="text" class="form-control" th:classappend="${#fields.hasErrors('rental_rate')?'is-invalid':''}" th:field="*{rental_rate}"  />
+                    <ul class="text-danger " th:if="${#fields.hasErrors('rental_rate')}">
+                        <li th:each="err : ${#fields.errors('rental_rate')}" th:text="${err}" />
+                    </ul>
+                </div>
+
+                <label for="duracion" class="form-label" th:text="#{p.title}" >
+                    Duracion
+                </label>
+                <div>
+                    <input id="duracion" type="text" class="form-control" th:classappend="${#fields.hasErrors('duracion')?'is-invalid':''}" th:field="*{duracion}"  />
+                    <ul class="text-danger " th:if="${#fields.hasErrors('duracion')}">
+                        <li th:each="err : ${#fields.errors('duracion')}" th:text="${err}" />
+                    </ul>
+                </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
